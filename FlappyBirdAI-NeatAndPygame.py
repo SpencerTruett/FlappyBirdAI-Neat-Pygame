@@ -27,3 +27,8 @@ class Bird:
     self.height = self.y #For move and tilt
     self.img_count = 0 #Which image we are currently showing
     self.img = self.IMGS[0] #Starting with initial image
+    
+    def jump(self):
+      self.vel = -10.5 #Top left is 0,0; so up is negative
+      self.tick_count = 0 #Resets for when we are changing direction of velocity
+      self.height = self.y #Where the bird jumped from
