@@ -74,6 +74,32 @@ class Bird:
         self.img = self.IMGS[1]
         self.img_count = self.ANIMATION_TIME*2
 
+        #Rotate an image around its center
         rotated_image = pygame.transform.rotate(self.img, self.tilt)
         new_rect = rotated_image.get_rect(center=self.img.get_rect(topLeft = (self.x, self.y)).center)
         win.blit(rotated_image, new_rect.topLeft)
+    
+    #For object collision
+    def get_mask(self):
+      return pygame.mask.from_surface(self.img)
+
+def draw_window(win, bird):
+    win.blit(BG_IMG, (0,0))
+    bird.draw(win)
+    pygame.display.update()
+
+def main():
+  bird = Bird(200, 200)
+
+  run = True
+  while run:
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        run = False
+    
+    draw_window(win, bird)
+
+  pygame.quit()
+  quit()
+
+  main()
