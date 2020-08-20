@@ -32,3 +32,22 @@ class Bird:
       self.vel = -10.5 #Top left is 0,0; so up is negative
       self.tick_count = 0 #Resets for when we are changing direction of velocity
       self.height = self.y #Where the bird jumped from
+          
+    def move(self):
+      self.tick_count += 1 #Add to tick count "since last jump"
+      d = self.vel*self.tick_count + 1.5*self.tick_count**2 #Based on current velocity, how much we're moving up or down; Creates the arc during a jump
+
+      if d >= 16: #Terminal Velocity wont be higher than 16
+        d = 16
+      
+      if d < 0: #Fine tunes the jump a bit
+        d -= 2
+
+      self.y = self.y + d #Adds the calculated value above to current y position
+
+      if d < 0 or self.y < self.height + 50: #Creates upward tilt at the upward arc of jump
+        if self.tilt < self.MAX_ROTATION:
+          self.tilt = self.MAX_ROTATION
+      else:
+        if self.tilt > -90:
+          self.tilt -= self.ROT_VEL
